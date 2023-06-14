@@ -6,11 +6,11 @@
                 <!-- Logo -->
 
              <div class="shrink-0 flex items-center">
-                    <div class="px-8 py-4 bg-primary md:flex items-center cursor-pointer relative group hidden">
+                    <div class="px-8 rounded py-4 bg-primary md:flex items-center cursor-pointer relative group hidden">
                         <span class="text-white">
                             <i class="fa-solid fa-bars"></i>
                         </span>
-                        <span class="capitalize ml-2 text-white hidden">All Categories</span>
+                        <span class="capitalize ml-2 text-white">Categories</span>
 
                         <!-- dropdown -->
                         <x-category></x-category>
@@ -20,11 +20,17 @@
                 <!-- Navigation Links -->
                  <x-navbar ></x-navbar>
 
+
             </div>
+               <!-- search -->
+            <x-search />
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 @auth
+
+                <x-header-items />
+
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
@@ -56,18 +62,23 @@
                     </x-slot>
                 </x-dropdown>
 
+
+
                 @else
 
-            <div class="relative sm:flex mr-6 sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
+            <div>
                 @if (Route::has('login'))
                     <div class="sm:fixed sm:top-0 sm:right-12 p-6 text-right z-10">
                         @auth
                             {{-- <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a> --}}
                         @else
-                            <a href="{{ route('login') }}" class="font-semibold  text-gray-800 hover:text-gray-500 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+                            <a href="{{ route('login') }}" class="bg-primary border border-primary text-white px-8 py-3 font-medium
+                            rounded-md hover:bg-transparent hover:text-primary mr-2">Log in</a>
 
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="ml-4  font-semibold text-gray-800 hover:text-gray-500 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                                <a href="{{ route('register') }}" class="bg-primary border border-primary text-white px-8 py-3 font-medium
+                                rounded-md hover:bg-transparent hover:text-primary">Register</a>
+
                             @endif
                         @endauth
                     </div>
@@ -77,6 +88,8 @@
 
 
                 @endauth
+
+
 
 
             </div>

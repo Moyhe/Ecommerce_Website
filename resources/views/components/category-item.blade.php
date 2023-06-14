@@ -6,11 +6,12 @@
 
 <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes]) }}>
 
-    <img src="{{ $image }}" alt="terrace" class="w-5 h-5 object-contain">
+    {{-- <img src="{{ $image }}" alt="terrace" class="w-5 h-5 object-contain"> --}}
 
-    <span class="ml-6 text-gray-600 text-sm">
+    <span class="flex flex:wrap text-gray-600 text-sm">
         {{ $slot }}
     </span>
 
-
 </a>
+
+
