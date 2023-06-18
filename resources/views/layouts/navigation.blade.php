@@ -26,10 +26,10 @@
             <x-search />
 
             <!-- Settings Dropdown -->
+            <x-header-items />
+
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 @auth
-
-                <x-header-items />
 
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
