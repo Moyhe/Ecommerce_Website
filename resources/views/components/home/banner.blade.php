@@ -8,9 +8,9 @@
                 accusantium perspiciatis, sapiente
                 magni eos dolorum ex quos dolores odio</p>
             <div class="mt-12">
-                <x-Home.button>
+                <x-home.button>
                     Shop Now
-                </x-Home.button>
+                </x-home.button>
             </div>
         </div>
     </div>
