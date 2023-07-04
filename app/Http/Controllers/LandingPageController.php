@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
+
 
 class LandingPageController extends Controller
 {
@@ -13,9 +13,11 @@ class LandingPageController extends Controller
      */
     public function index()
     {
-        $products = Product::query()->latest()->take(8)->inRandomOrder()->get();
+        $products = Product::query()->latest()->take(8)->inRandomOrder()->filter(request(['search', 'category']))->get();
+        $categories = Category::query()->take(6)->get();
 
-         return view('home.index', compact('products'));
+         return view('home.index', compact(['products', 'categories']));
     }
+
 
 }

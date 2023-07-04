@@ -7,18 +7,13 @@
 
              <div class="shrink-0 flex items-center">
                     <div class="px-8 rounded py-4 bg-primary md:flex items-center cursor-pointer relative group hidden">
-                        <span class="text-white">
-                            <i class="fa-solid fa-bars"></i>
-                        </span>
-                        <span class="capitalize ml-2 text-white">Categories</span>
-
                         <!-- dropdown -->
-                        <x-category></x-category>
+                        <x-category-dropdown />
                     </div>
                 </div>
 
                 <!-- Navigation Links -->
-                 <x-navbar ></x-navbar>
+                 <x-navbar />
 
 
             </div>
@@ -62,8 +57,6 @@
                     </x-slot>
                 </x-dropdown>
 
-
-
                 @else
 
             <div>
@@ -72,12 +65,16 @@
                         @auth
                             {{-- <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a> --}}
                         @else
-                            <a href="{{ route('login') }}" class="bg-primary border border-primary text-white px-8 py-3 font-medium
-                            rounded-md hover:bg-transparent hover:text-primary mr-2">Log in</a>
+                        <a href="{{ route('login') }}" class="bg-primary border border-primary text-white px-8 py-3 font-medium
+                            rounded-md hover:bg-transparent hover:text-primary mr-2">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i>    Log in
+                        </a>
 
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}" class="bg-primary border border-primary text-white px-8 py-3 font-medium
-                                rounded-md hover:bg-transparent hover:text-primary">Register</a>
+                                rounded-md hover:bg-transparent hover:text-primary">
+                                <i class="fa-solid fa-registered"></i>   Register
+                            </a>
 
                             @endif
                         @endauth
@@ -86,11 +83,7 @@
 
             </div>
 
-
                 @endauth
-
-
-
 
             </div>
 
@@ -127,6 +120,12 @@
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
+{{--
+                @admin
+                 <x-responsive-nav-link :href="route('admin')">
+                    {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+                @endadmin --}}
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

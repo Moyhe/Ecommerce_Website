@@ -1,19 +1,19 @@
 <?php
 
-namespace App\View\Components\aboutUs;
+namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class about extends Component
+class PriceItem extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
-        //
+
     }
 
     /**
@@ -21,6 +21,6 @@ class about extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.about-us.about');
+        return view('components.price-item');
     }
 }

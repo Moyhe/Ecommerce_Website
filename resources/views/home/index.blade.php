@@ -1,8 +1,8 @@
 
-<x-app-layout>
+<x-app-layout >
  <x-home.banner />
  <x-home.features />
- <x-home.categories />
+ <x-home.categories :categories="$categories" />
  <x-home.new :products="$products" />
  <x-home.MoreToLove  :products="$products" />
  <x-home.footer />

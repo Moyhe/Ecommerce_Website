@@ -5,9 +5,12 @@
             <span class="absolute left-4 top-3 text-lg text-gray-400">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </span>
-          <form action="" method="get">
-            @csrf
-            <input type="text" name="search" id="search"
+          <form action="{{ route('home') }}" method="get">
+            @if (request('category'))
+            <input type="hidden" name="category" value="{{ request('category') }}">
+            @endif
+
+            <input type="text" name="search" id="search" value="{{ request('search') }}"
             class="w-full   border border-primary  pl-12 py-3 pr-3 rounded focus:outline-none hidden md:flex"
             placeholder="search">
           </form>

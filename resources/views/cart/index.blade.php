@@ -2,5 +2,5 @@
 <x-app-layout>
     <x-cart.breadcrumb />
     <x-cart.sidebar />
-    <x-Home.footer></x-Home.footer>
+    <x-home.footer></x-home.footer>
 </x-app-layout>
