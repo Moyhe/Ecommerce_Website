@@ -58,7 +58,6 @@ class ProductResource extends Resource
                       Forms\Components\RichEditor::make('description')
                       ->required(),
 
-
                     ])->columnSpan(8),
 
                 Card::make()

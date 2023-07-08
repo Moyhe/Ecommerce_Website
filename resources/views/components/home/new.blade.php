@@ -16,11 +16,23 @@
                             title="view product">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </a>
-                        <a href="#"
-                            class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
-                            title="add to wishlist">
-                            <i class="fa-solid fa-heart"></i>
-                        </a>
+                        @if ($product->quantity > 0)
+                        <form action="{{ route('wihslist.store', $product) }}" method="post">
+                            @csrf
+                            @method('POST')
+                            <input type="hidden" name="id" value="{{ $product->id }}">
+                            <input type="hidden" name="name" value="{{ $product->name }}">
+                            <input type="hidden" name="quantity" value="{{ $product->quantity }}">
+                            <input type="hidden" name="price" value="{{ $product->price }}">
+
+                           <button type="submit"
+                           title="add to wishlist"
+                           class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition">
+                           <i class="fa-solid fa-heart"></i>
+                        </button>
+                       </form>
+
+                       @endif
                     </div>
                 </div>
                 <div class="pt-4 pb-3 px-4">

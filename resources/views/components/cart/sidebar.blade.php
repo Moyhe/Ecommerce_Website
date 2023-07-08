@@ -44,9 +44,6 @@
                     My wishlist
                 </a>
             </div>
-
-
-
         </div>
     </div>
     <!-- ./sidebar -->
@@ -61,14 +58,47 @@
             {{-- <img src="images/products/product5.jpg" alt="product 6" class="w-full"> --}}
             <img src="{{ asset('storage/' . $item->model->thumbnail) }}" alt="product 6" class="w-full h-24">
         </div>
-        <div class="" x-data="{count: '{{ $item->model->quantity }}'}">
-            <h3 class="text-sm text-gray-800 uppercase mb-1">Quantity</h3>
-            <div class="flex border border-gray-300 text-gray-600 divide-x divide-gray-300 w-max">
-                <div @click="count = count > 0 ? count-1 : count"  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">-</div>
-                <div x-text="count" class="h-8 w-8 text-base flex items-center justify-center">
+        <div x-cloak  x-data="{
 
-                </div>
-                <div @click="count++" class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">+</div>
+          count: '{{ $item->qty }}',
+          id : '{{ $item->rowId }}',
+          productQuantity: '{{ $item->model->quantity }}',
+
+       async increament() {
+
+            await axios.patch(`/cart/${this.id}`, {
+                quantity: ++this.count,
+                productQuantity: this.productQuantity,
+                })
+                .then(function (response) {
+                window.location.href = '{{ route('cart') }}'
+                })
+                .catch(function (error) {
+                window.location.href = '{{ route('cart') }}'
+                });
+            },
+
+        async decreament() {
+
+                await axios.patch(`/cart/${this.id}`, {
+                quantity: --this.count,
+                productQuantity: this.productQuantity,
+                })
+                .then(function (response) {
+                window.location.href = '{{ route('cart') }}'
+                })
+                .catch(function (error) {
+                window.location.href = '{{ route('cart') }}'
+                });
+            },
+
+        }">
+
+          <h3 class="text-sm text-gray-800 uppercase mb-1">Quantity</h3>
+            <div :value="id" class="flex border border-gray-300 text-gray-600 divide-x divide-gray-300 w-max">
+                <button  @click.prevent="decreament" :class="count == 1 ? 'pointer-events-none @disabled(true)' : '' "  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">-</button>
+                <input   :value="count"  class="h-8 w-8 bg-gray-100  text-center flex items-center justify-center quantity" @disabled(true) />
+                <button  @click.prevent="increament"  class="h-8 w-8  text-xl flex items-center justify-center cursor-pointer select-none">+</button>
             </div>
         </div>
 
@@ -76,23 +106,26 @@
             <h2 class="text-gray-800 text-xl font-medium uppercase">{{$item->model->name}}</h2>
             <p class="text-gray-500 text-sm">Availability: <span class="text-green-600">
 
-                @if ($item->model->quantity > 6)
+                @if ($item->model->quantity > config('cart.threshold'))
                 <span class="text-green-600">In Stock</span>
                 @endif
 
-                @if ($item->model->quantity  <= 6 && $item->model->quantity  > 0)
+                @if ($item->model->quantity  <= config('cart.threshold') && $item->model->quantity  > 0)
                 <span class="text-yellow-600">Low Stock</span>
                 @endif
 
-               @if ($item->model->quantity  == 0)
-               <span class="text-green-600">Out Of Stock</span>
-               @endif
+                @if ($item->model->quantity  == 0)
+                <span class="text-green-600">Out Of Stock</span>
+                @endif
 
             </span></p>
         </div>
         <div class="text-primary text-lg font-semibold">${{ $item->model->price }}</div>
-        <a href="#"
-            class="px-6 py-2 text-center text-sm text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">save for later</a>
+         <form action="{{ route('cart.saveForLater', $item->rowId) }}" method="POST">
+            @csrf
+            <button type="submit"
+            class="px-6 py-2 text-center text-sm text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">save for later</button>
+         </form>
 
         <div class="text-gray-600 cursor-pointer hover:text-primary">
             <form action="{{ route('cart.destroy', $item->rowId) }}" method="post">
@@ -105,12 +138,108 @@
 
       @endforeach
 
+   @if (Cart::count() > 0)
+   <div class="">
+    <p class="mb-4 md:flex justify-end italic">If you have a coupon code, please enter it in the box below</p>
+    <div class="justify-end md:flex">
+      <form action="" method="POST">
+          <div class="flex items-center w-full h-13 pl-3  bg-gray-200 border rounded-full">
+            <input type="coupon" name="code" id="coupon" placeholder="Apply coupon" value=""
+                    class="w-full bg-gray-200 outline-none appearance-none focus:outline-none active:outline-none"/>
+              <button type="submit" class="text-sm flex items-center px-3 py-1 text-white bg-gray-800 rounded-full outline-none md:px-4 hover:bg-gray-700 focus:outline-none active:outline-none">
+                <svg aria-hidden="true" data-prefix="fas" data-icon="gift" class="w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 448c0 17.7 14.3 32 32 32h160V320H32v128zm256 32h160c17.7 0 32-14.3 32-32V320H288v160zm192-320h-42.1c6.2-12.1 10.1-25.5 10.1-40 0-48.5-39.5-88-88-88-41.6 0-68.5 21.3-103 68.3-34.5-47-61.4-68.3-103-68.3-48.5 0-88 39.5-88 88 0 14.5 3.8 27.9 10.1 40H32c-17.7 0-32 14.3-32 32v80c0 8.8 7.2 16 16 16h480c8.8 0 16-7.2 16-16v-80c0-17.7-14.3-32-32-32zm-326.1 0c-22.1 0-40-17.9-40-40s17.9-40 40-40c19.9 0 34.6 3.3 86.1 80h-86.1zm206.1 0h-86.1c51.4-76.5 65.7-80 86.1-80 22.1 0 40 17.9 40 40s-17.9 40-40 40z"/></svg>
+                <span class="font-medium">Apply coupon</span>
+              </button>
+          </div>
+      </form>
+    </div>
+  </div>
+   @endif
 
+
+
+
+  @if (Cart::count() > 0)
   <x-cart.cart-list></x-cart.cart-list>
+  @else
+   <div class="flex items-center justify-center">
+    <div class="text-center text-indigo-950 rounded-full bg-gray-200 p-5 m-5 ">
+        You Cart Is Empty
+      </div>
+
+       <div class="w-80">
+
+        <img  src="{{asset('images/carts.jpg')}}" alt="" class="h-80 rounded-full">
+        </div>
+   </div>
+  @endif
+
 
 
 </div>
 <!-- ./cartList -->
 
 
+
+</x-cart.wrapper>
+
+
+<x-cart.wrapper>
+
+
+
+  <div class="col-span-3"></div>
+
+    <div class="col-span-9">
+
+        @if (Cart::instance('saveForLater')->count() > 0)
+        <h1 class="bg-gray-200 rounded font-bold p-3 flex justify-center">
+           <p>   ({{ Cart::instance('saveForLater')->count() }})  items Saved For Later</p>
+          </h1>
+        @endif
+
+    @foreach (Cart::instance('saveForLater')->content() as $item)
+    <div class="flex items-center justify-between border gap-6 p-4 border-gray-200 rounded">
+      <div class="w-28">
+          {{-- <img src="images/products/product5.jpg" alt="product 6" class="w-full"> --}}
+          <img src="{{ asset('storage/' . $item->model->thumbnail) }}" alt="product 6" class="w-full h-24">
+      </div>
+
+      <div class="w-1/3">
+          <h2 class="text-gray-800 text-xl font-medium uppercase">{{$item->model->name}}</h2>
+          <p class="text-gray-500 text-sm">Availability: <span class="text-green-600">
+
+              @if ($item->model->quantity > config('cart.threshold'))
+              <span class="text-green-600">In Stock</span>
+              @endif
+
+              @if ($item->model->quantity  <= config('cart.threshold') && $item->model->quantity  > 0)
+              <span class="text-yellow-600">Low Stock</span>
+              @endif
+
+              @if ($item->model->quantity  == 0)
+              <span class="text-green-600">Out Of Stock</span>
+              @endif
+
+          </span></p>
+      </div>
+      <div class="text-primary text-lg font-semibold">${{ $item->model->price }}</div>
+       <form action="{{ route('saveForLater.switchToCart', $item->rowId) }}" method="post">
+        @csrf
+        <button type="submit"
+          class="px-6 py-2 text-center text-sm text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">Move To Cart</button>
+       </form>
+
+      <div class="text-gray-600 cursor-pointer hover:text-primary">
+          <form action="{{ route('saveForLater.destroy', $item->rowId) }}" method="post">
+             @csrf
+             @method('DELETE')
+              <button type="submit" class="cart-options"><i class="fa-solid fa-trash"></i></button>
+          </form>
+      </div>
+  </div>
+
+    @endforeach
+
+  </div>
 </x-cart.wrapper>
