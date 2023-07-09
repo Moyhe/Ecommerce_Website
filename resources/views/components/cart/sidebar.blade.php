@@ -1,4 +1,6 @@
 
+@props(['discount', 'newSubTotal', 'newTotal', 'newTax'])
+
 <x-cart.wrapper>
 
     <!-- sidebar -->
@@ -138,13 +140,14 @@
 
       @endforeach
 
-   @if (Cart::count() > 0)
+   @if (Cart::count() > 0 && !session()->has('coupon'))
    <div class="">
     <p class="mb-4 md:flex justify-end italic">If you have a coupon code, please enter it in the box below</p>
     <div class="justify-end md:flex">
-      <form action="" method="POST">
+      <form action="{{ route('coupon.store') }}" method="POST">
+        @csrf
           <div class="flex items-center w-full h-13 pl-3  bg-gray-200 border rounded-full">
-            <input type="coupon" name="code" id="coupon" placeholder="Apply coupon" value=""
+            <input type="coupon" name="code" id="coupon" placeholder="Apply coupon"
                     class="w-full bg-gray-200 outline-none appearance-none focus:outline-none active:outline-none"/>
               <button type="submit" class="text-sm flex items-center px-3 py-1 text-white bg-gray-800 rounded-full outline-none md:px-4 hover:bg-gray-700 focus:outline-none active:outline-none">
                 <svg aria-hidden="true" data-prefix="fas" data-icon="gift" class="w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 448c0 17.7 14.3 32 32 32h160V320H32v128zm256 32h160c17.7 0 32-14.3 32-32V320H288v160zm192-320h-42.1c6.2-12.1 10.1-25.5 10.1-40 0-48.5-39.5-88-88-88-41.6 0-68.5 21.3-103 68.3-34.5-47-61.4-68.3-103-68.3-48.5 0-88 39.5-88 88 0 14.5 3.8 27.9 10.1 40H32c-17.7 0-32 14.3-32 32v80c0 8.8 7.2 16 16 16h480c8.8 0 16-7.2 16-16v-80c0-17.7-14.3-32-32-32zm-326.1 0c-22.1 0-40-17.9-40-40s17.9-40 40-40c19.9 0 34.6 3.3 86.1 80h-86.1zm206.1 0h-86.1c51.4-76.5 65.7-80 86.1-80 22.1 0 40 17.9 40 40s-17.9 40-40 40z"/></svg>
@@ -157,10 +160,110 @@
    @endif
 
 
-
-
   @if (Cart::count() > 0)
-  <x-cart.cart-list></x-cart.cart-list>
+  <div >
+
+    <br>
+
+    <div class="flex items-center  justify-between border gap-6 p-4 border-gray-200 rounded">
+
+       <div class="w-2/3">
+           <h2 class="text-gray-800 text-xl font-medium ">SubTotal</h2>
+       </div>
+       <div class="text-primary  text-lg font-semibold">${{ Cart::subtotal() }}</div>
+
+    </div>
+
+
+    @if (session()->has('coupon'))
+    <div class="flex items-center  justify-between border gap-6 p-4 border-gray-200 rounded">
+
+        <div class="w-2/3">
+            <h2 class="text-gray-800 text-xl font-medium ">Code ({{ session()->get('coupon')['name'] }})</h2>
+            <br>
+
+            <form action="{{ route('coupon.destroy') }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button
+                class="px-6 py-2 text-center text-sm text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary rounded-full transition uppercase font-roboto font-medium">Remove</button>
+
+             </form>
+
+
+        </div>
+        <div class="text-primary  text-lg font-semibold">-${{ $discount }}</div>
+
+     </div>
+
+     <div class="flex items-center  justify-between border gap-6 p-4 border-gray-200 rounded">
+
+        <div class="w-2/3">
+            <h2 class="text-gray-800 text-xl font-medium "> new subTotal </h2>
+
+        </div>
+        <div class="text-primary  text-lg font-semibold">${{ $newSubTotal }}</div>
+
+     </div>
+
+     <div class="flex items-center  justify-between border gap-6 p-4 border-gray-200 rounded">
+
+        <div class="w-2/3">
+            <h2 class="text-gray-800 text-xl font-medium ">Taxes ({{config('cart.tax')}}%)</h2>
+        </div>
+        <div class="text-primary  text-lg font-semibold">{{ $newTax }}</div>
+
+     </div>
+
+     <div class="flex items-center  justify-between border gap-6 p-4 border-gray-200 rounded">
+
+        <div class="w-2/3">
+            <h2 class="text-gray-800 text-xl font-medium ">New Total Price</h2>
+        </div>
+        <div class="text-primary  text-lg font-semibold">${{ $newTotal }}</div>
+
+     </div>
+
+    @else
+
+    <div class="flex items-center  justify-between border gap-6 p-4 border-gray-200 rounded">
+
+       <div class="w-2/3">
+           <h2 class="text-gray-800 text-xl font-medium ">Taxes ({{config('cart.tax')}}%)</h2>
+       </div>
+       <div class="text-primary  text-lg font-semibold">${{ Cart::tax() }}</div>
+
+    </div>
+
+    <div class="flex items-center  justify-between border gap-6 p-4 border-gray-200 rounded">
+
+       <div class="w-2/3">
+           <h2 class="text-gray-800 text-xl font-medium ">Total Price</h2>
+       </div>
+       <div class="text-primary  text-lg font-semibold">${{ Cart::total() }}</div>
+
+    </div>
+
+    @endif
+
+       <div class="flex items-center absolute mx-auto justify-between border gap-3 p-4 border-gray-200 rounded">
+
+           <a href="#"
+           class="px-6 py-2 text-center text-sm text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">process to checkout</a>
+
+
+          <a href="{{ route('shop') }}"
+          class="px-6 py-2 text-center text-sm text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">continue shopping
+
+         </a>
+
+       </div>
+
+
+    <!-- ./cartList -->
+
+    </div>
+
   @else
    <div class="flex items-center justify-center">
     <div class="text-center text-indigo-950 rounded-full bg-gray-200 p-5 m-5 ">

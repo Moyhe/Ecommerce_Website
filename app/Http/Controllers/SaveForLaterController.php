@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
-
 class SaveForLaterController extends Controller
 {
-
 
     public function switchToCart(string $id)
     {
@@ -34,4 +32,6 @@ class SaveForLaterController extends Controller
 
         return back()->with('success', 'Product has been removed!');
     }
+
+
 }

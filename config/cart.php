@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'tax' => 21,
+    'tax' => 13,
     'threshold'=> 6,
 
     /*

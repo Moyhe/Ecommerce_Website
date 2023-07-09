@@ -2,57 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\UpdateCoupon;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
 
 class CouponController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
-    }
+        $coupon = Coupon::where('code', $request->code)->first();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Coupon $coupon)
-    {
-        //
-    }
+        if(!$coupon) return back()->withErrors('Invalid coupon code. Please try again.');
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Coupon $coupon)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Coupon $coupon)
-    {
-        //
+        dispatch_sync(new UpdateCoupon($coupon));
+        return back()->with('success', 'Coupon has been applied!');
     }
 
     /**
@@ -60,6 +26,7 @@ class CouponController extends Controller
      */
     public function destroy(Coupon $coupon)
     {
-        //
+        session()->forget('coupon');
+        return back()->with('success', 'Coupon has been removed.');
     }
 }

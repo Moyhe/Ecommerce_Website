@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Contracts\Session\Session;
@@ -14,10 +15,15 @@ class CartController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Coupon $coupon)
     {
+        $discount = $coupon->getCoupon()->get('discount');
+        $newSubTotal = $coupon->getCoupon()->get('newSubtotal');
+        $newTax = $coupon->getCoupon()->get('newTax');
+        $newTotal = $coupon->getCoupon()->get('newTotal');
 
-        return view('cart.index');
+
+        return view('cart.index', compact(['discount', 'newSubTotal', 'newTax', 'newTotal']));
     }
 
 
@@ -49,8 +55,6 @@ class CartController extends Controller
        $validator = Validator::make($request->all(), [
           'quantity' => ['required', 'numeric', 'between:1,7']
        ]);
-
-
 
         if($validator->fails()) {
 
