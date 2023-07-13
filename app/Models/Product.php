@@ -56,9 +56,9 @@ class Product extends Model
 
     public function getStockLevel($quantity)
     {
-       if ($quantity > 6) {
+       if ($quantity > config('cart.threshold')) {
            $stcokLevel = '<span class="text-green-600">In Stock</span>';
-       } elseif ($quantity <= 6 && $quantity > 0) {
+       } elseif ($quantity <= config('cart.threshold') && $quantity > 0) {
            $stcokLevel = '<span class="text-yellow-400">Low Stock</span>';
        } else {
         $stcokLevel = '<span class="text-red-600">Out of Stock</span>';

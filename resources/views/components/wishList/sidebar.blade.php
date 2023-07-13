@@ -52,6 +52,8 @@
     @props(['stockLevel', 'product'])
 <div class="col-span-9 space-y-4">
 
+     @if (Cart::instance('wishlist')->count() > 0)
+
     @foreach (Cart::instance('wishlist')->content() as $item)
     <div class="flex items-center justify-between border gap-6 p-4 border-gray-200 rounded">
         <div class="w-28">
@@ -100,6 +102,18 @@
         </div>
     </div>
     @endforeach
+     @else
+     <div class="flex items-center justify-center">
+        <div class="text-center text-indigo-950 rounded-full bg-gray-200 p-5 m-5 ">
+            You WishList Is Empty
+          </div>
+
+           <div class="w-80">
+
+            <img  src="{{asset('images/wishlist.avif')}}" alt="" class="h-80 rounded-full">
+            </div>
+       </div>
+     @endif
 
 </div>
 <!-- ./wishlist -->

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\LandingPageController;
@@ -43,6 +45,8 @@ Route::delete('/coupon', [CouponController::class, 'destroy'])->name('coupon.des
 Route::get('/wihslist', [WishListController::class, 'index'])->name('wishlist');
 Route::post('/wihslist/{product}', [WishListController::class, 'store'])->name('wihslist.store');
 Route::delete('/wihslist/{product}', [WishListController::class, 'destroy'])->name('wihslist.destroy');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::get('/thankyou', [ConfirmationController::class, 'index']);
 Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
 Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact-us');
 

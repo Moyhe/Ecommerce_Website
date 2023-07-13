@@ -246,16 +246,16 @@
 
     @endif
 
-       <div class="flex items-center absolute mx-auto justify-between border gap-3 p-4 border-gray-200 rounded">
+       <div class="flex items-center absolute mx-auto justify-between border gap-3 mt-4 p-4 border-gray-200 rounded">
 
-           <a href="#"
+           <a href="{{ route('checkout') }}"
            class="px-6 py-2 text-center text-sm text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">process to checkout</a>
 
-
+{{--
           <a href="{{ route('shop') }}"
           class="px-6 py-2 text-center text-sm text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">continue shopping
 
-         </a>
+         </a> --}}
 
        </div>
 
