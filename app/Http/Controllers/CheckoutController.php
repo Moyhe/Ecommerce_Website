@@ -32,13 +32,8 @@ class CheckoutController extends Controller
     }
 
 
-
-    public function store(CheckoutRequest $request)
+    public function store(CheckoutRequest $request, Coupon $coupon)
     {
-
-        if ($this->productsAreNoLongerAvailable()) {
-            return back()->withErrors('Sorry! One of the items in your cart is no longer avialble.');
-        }
 
         $data = json_decode(request());
 
@@ -74,7 +69,12 @@ class CheckoutController extends Controller
         if ($hased_hasMac === $hashMac) {
 
            try {
-            $order = $this->placeOrders($transaction_id, $order_id, $pending, $success, $request, null);
+
+            if ($this->productsAreNoLongerAvailable()) {
+                return back()->withErrors('Sorry! One of the items in your cart is no longer avialble.');
+            }
+
+            $order = $this->placeOrders($transaction_id, $order_id, $pending, $success, $request, null, $coupon);
             Mail::to(request()->user())->send(new OrderShipped($order));
 
             // decrease the quantities of all the products in the cart
@@ -84,19 +84,16 @@ class CheckoutController extends Controller
            session()->forget('coupon');
 
          } catch (CartAlreadyStoredException $e) {
-            $this->placeOrders($transaction_id, $order_id, $pending, $success, $request, $e->getMessage());
+            $this->placeOrders($transaction_id, $order_id, $pending, $success, $request, $e->getMessage(), $coupon);
            }
 
 
         }
 
         return;
-
-
-
     }
 
-    protected function placeOrders($transaction_id, $order_id, $pending, $success, $request, $error)
+    protected function placeOrders($transaction_id, $order_id, $pending, $success, $request, $error, $coupon)
     {
 
         // Insert into orders table
@@ -113,6 +110,7 @@ class CheckoutController extends Controller
         'order_number' => $order_id,
         'pending' => $pending,
         'success' => $success,
+        'totalPrice' => $coupon->getCoupon()->get('newTotal'),
         'error' => $error
 
     ]);

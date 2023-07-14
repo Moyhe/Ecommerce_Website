@@ -11,6 +11,9 @@ class Order extends Model
 {
     use HasFactory;
 
+
+    protected $with = ['products'];
+
     /**
      * Get the user that owns the Order
      *

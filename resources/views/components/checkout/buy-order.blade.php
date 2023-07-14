@@ -2,19 +2,20 @@
 
 <x-checkout.wrapper>
 
-    <div class="col-span-8 border border-gray-200 p-4 rounded">
-        <h3 class="text-lg font-medium capitalize mb-4">Checkout</h3>
-        <div class="space-y-4">
+    <x-form.field>
+
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label for="first-name" class="text-gray-600">First Name <span
                             class="text-primary">*</span></label>
                     <input type="text" name="first_name" id="first-name"  value="{{ old('first_name') }}" class="input-box">
+
                 </div>
                 <div>
                     <label for="last-name" class="text-gray-600">Last Name <span
                             class="text-primary">*</span></label>
                     <input type="text" name="last_name"value="{{ old('last_name') }}" id="last-name" class="input-box">
+
                 </div>
             </div>
 
@@ -43,10 +44,7 @@
                 <input type="email" value="{{ old('email') }}" name="email" id="email" class="input-box">
             </div>
 
-        </div>
-
-    </div>
-
+        </x-form.field>
 
 
     @if (Cart::instance('default')->count() > 0)

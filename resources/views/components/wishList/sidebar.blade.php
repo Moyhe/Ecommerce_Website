@@ -28,7 +28,7 @@
             </div>
 
             <div class="space-y-1 pl-8 pt-4">
-                <a href="#" class="relative hover:text-primary block font-medium capitalize transition">
+                <a href="{{route('order')}}" class="relative hover:text-primary block font-medium capitalize transition">
                     <span class="absolute -left-8 top-0 text-base">
                         <i class="fa-solid fa-box-archive"></i>
                     </span>

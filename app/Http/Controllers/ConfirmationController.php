@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ConfirmationController extends Controller
@@ -12,17 +14,15 @@ class ConfirmationController extends Controller
     public function index()
     {
 
-        // $data = request()->query();
-        //return view('thankyou.index');
-           dd(request()->query());
+         $data = request()->query();
+         $success = $data['success'];
 
-        //     $success = $data['success'];
+        if($success)   return view('thankyou.index');
 
-    //    if($success)   return view('thankyou.index');
+        $products = Product::query()->latest()->take(8)->inRandomOrder()->filter(request(['search', 'category']))->get();
+        $categories = Category::query()->take(6)->get();
 
-    //    return view('/');
-
-
+        return view('home.index', compact(['products', 'categories']));
 
     }
 

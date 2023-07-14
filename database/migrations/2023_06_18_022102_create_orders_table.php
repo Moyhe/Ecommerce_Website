@@ -25,6 +25,7 @@ return new class extends Migration
             $table->unsignedInteger('order_number')->nullable();
             $table->boolean('pending')->nullable();
             $table->boolean('success')->nullable();
+            $table->float('totalPrice')->nullable();
             $table->text('error')->nullable();
             $table->timestamps();
         });

@@ -7,6 +7,7 @@ use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\saveForLater;
 use App\Http\Controllers\SaveForLaterController;
@@ -47,6 +48,8 @@ Route::post('/wihslist/{product}', [WishListController::class, 'store'])->name('
 Route::delete('/wihslist/{product}', [WishListController::class, 'destroy'])->name('wihslist.destroy');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::get('/thankyou', [ConfirmationController::class, 'index']);
+Route::get('/order', [OrdersController::class, 'index'])->name('order');
+Route::get('/search', [LandingPageController::class, 'search'])->name('search');
 Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
 Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact-us');
 

@@ -41,4 +41,6 @@ class ShopController extends Controller
          return view('product.index', compact('product', 'relatedProducts', 'stockLevel'));
     }
 
+
+
 }

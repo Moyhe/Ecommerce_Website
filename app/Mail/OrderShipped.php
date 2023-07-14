@@ -32,7 +32,7 @@ class OrderShipped extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('Mohye@example.com', 'Mohye Mahmoud'),
+            from: new Address('Mohye@gmail.com', 'Mohye Mahmoud'),
             replyTo: [
                 new Address($this->order->email, $this->order->firstName),
             ],
