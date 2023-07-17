@@ -34,6 +34,9 @@ class CheckoutController extends Controller
 
     public function store(CheckoutRequest $request, Coupon $coupon)
     {
+        if ($this->productsAreNoLongerAvailable()) {
+            return back()->withErrors('Sorry! One of the items in your cart is no longer avialble.');
+        }
 
         $data = json_decode(request());
 
@@ -69,10 +72,6 @@ class CheckoutController extends Controller
         if ($hased_hasMac === $hashMac) {
 
            try {
-
-            if ($this->productsAreNoLongerAvailable()) {
-                return back()->withErrors('Sorry! One of the items in your cart is no longer avialble.');
-            }
 
             $order = $this->placeOrders($transaction_id, $order_id, $pending, $success, $request, null, $coupon);
             Mail::to(request()->user())->send(new OrderShipped($order));

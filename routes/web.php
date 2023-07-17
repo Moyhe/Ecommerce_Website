@@ -32,24 +32,38 @@ use Illuminate\Support\Facades\Route;
 // })->name('dashboard');
 
 Route::get('/', [LandingPageController::class, 'index'])->name('home');
+Route::get('/search', [LandingPageController::class, 'search'])->name('search');
+
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/shop/{product:slug}', [ShopController::class, 'show'])->name('shop.show');
+
+
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::post('/cart/{product}', [CartController::class, 'store'])->name('cart.store');
 Route::patch('/cart/{product}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/cart/{product}', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::post('/cart/switchToSaveForLater/{product}', [CartController::class, 'switchToSaveForLater'])->name('cart.saveForLater');
+
+
 Route::delete('/saveForLater/{product}', [SaveForLaterController::class, 'destroy'])->name('saveForLater.destroy');
 Route::post('/saveForLater/switchToCart/{product}', [SaveForLaterController::class, 'switchToCart'])->name('saveForLater.switchToCart');
+
+
 Route::post('/coupon', [CouponController::class, 'store'])->name('coupon.store');
 Route::delete('/coupon', [CouponController::class, 'destroy'])->name('coupon.destroy');
+
 Route::get('/wihslist', [WishListController::class, 'index'])->name('wishlist');
 Route::post('/wihslist/{product}', [WishListController::class, 'store'])->name('wihslist.store');
 Route::delete('/wihslist/{product}', [WishListController::class, 'destroy'])->name('wihslist.destroy');
+
+
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::get('/thankyou', [ConfirmationController::class, 'index']);
-Route::get('/order', [OrdersController::class, 'index'])->name('order');
-Route::get('/search', [LandingPageController::class, 'search'])->name('search');
+
+Route::get('/my-orders', [OrdersController::class, 'index'])->name('order');
+Route::get('/my-orders/{order}', [OrdersController::class, 'show'])->name('order.show');
+
+
 Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
 Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact-us');
 

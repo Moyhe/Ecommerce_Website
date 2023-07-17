@@ -1,6 +1,8 @@
 
 <x-app-layout >
 
-<x-order />
+<x-order.order :orders="$orders" />
 
 </x-app-layout>
+
+
