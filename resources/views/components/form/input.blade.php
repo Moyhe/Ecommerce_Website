@@ -1,10 +1,10 @@
 @props(['name'])
 
-<x-form.label name="{{ $name }}"/>
 
 <input class="input-box"
        name="{{ $name }}"
        id="{{ $name }}"
+       {{$name}} == 'email' ? type="email" : type="text"
        {{ $attributes(['value' => old($name)]) }}
 >
 

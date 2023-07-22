@@ -8,40 +8,45 @@
                 <div>
                     <label for="first-name" class="text-gray-600">First Name <span
                             class="text-primary">*</span></label>
-                    <input type="text" name="first_name" id="first-name"  value="{{ old('first_name') }}" class="input-box">
-
+                    {{-- <input type="text" name="first_name" id="first-name"  value="{{ old('first_name') }}" class="input-box"> --}}
+                    <x-form.input name="first_name" />
                 </div>
                 <div>
                     <label for="last-name" class="text-gray-600">Last Name <span
                             class="text-primary">*</span></label>
-                    <input type="text" name="last_name"value="{{ old('last_name') }}" id="last-name" class="input-box">
-
+                    {{-- <input type="text" name="last_name"value="{{ old('last_name') }}" id="last-name" class="input-box"> --}}
+                    <x-form.input name="last_name" />
                 </div>
             </div>
 
             <div>
                 <label for="country" class="text-gray-600">Country/Region</label>
-                <input type="text" name="country" value="{{ old('country') }}" id="country" class="input-box">
+                {{-- <input type="text" name="country" value="{{ old('country') }}" id="country" class="input-box"> --}}
+                <x-form.input name="country" />
             </div>
 
 
             <div>
                 <label for="address" class="text-gray-600">Street address</label>
-                <input type="text" value="{{ old('address') }}" name="address" id="address" class="input-box">
+                {{-- <input type="text" value="{{ old('address') }}" name="address" id="address" class="input-box"> --}}
+                <x-form.input name="address" />
             </div>
 
 
             <div>
                 <label for="city" class="text-gray-600">City</label>
-                <input type="text" value="{{ old('city') }}" name="city" id="city" class="input-box">
+                {{-- <input type="text" value="{{ old('city') }}" name="city" id="city" class="input-box"> --}}
+                <x-form.input name="city" />
             </div>
             <div>
                 <label for="phone" class="text-gray-600">Phone number</label>
-                <input type="text" value="{{ old('phone') }}" name="phone" id="phone" class="input-box">
+                {{-- <input type="text" value="{{ old('phone') }}" name="phone" id="phone" class="input-box"> --}}
+                <x-form.input name="phone" />
             </div>
             <div>
                 <label for="email" class="text-gray-600">Email address</label>
-                <input type="email" value="{{ old('email') }}" name="email" id="email" class="input-box">
+                {{-- <input type="email" value="{{ old('email') }}" name="email" id="email" class="input-box"> --}}
+                <x-form.input name="email" />
             </div>
 
         </x-form.field>
