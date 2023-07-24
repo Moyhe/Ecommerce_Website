@@ -9,7 +9,6 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\saveForLater;
 use App\Http\Controllers\SaveForLaterController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\WishListController;
@@ -66,6 +65,7 @@ Route::get('/my-orders/{order}', [OrdersController::class, 'show'])->name('order
 
 Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
 Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact-us');
+Route::post('/contact/submit', [ContactUsController::class, 'submit'])->name('contact');
 
 Route::get('empty', function(){
      Cart::destroy();
