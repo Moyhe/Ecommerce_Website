@@ -1,6 +1,6 @@
 ## Ecommerce Wesbite 
 
-laravel 10 Ecommerce website  with docker and MySQL. it has filament admin panel 
+laravel 10 Ecommerce website  with docker,  MySQL, Tailwindcss and Alpine js. it has filament admin panel 
 
 ## Demo
 
