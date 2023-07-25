@@ -11,7 +11,7 @@
             @endif
 
             <input type="text" name="search" id="search" value="{{ request('search') }}"
-            class="w-full   border border-primary  pl-12 py-3 pr-3 rounded focus:outline-none focus:shadow-none hidden md:flex"
+            class="w-full   border border-primary  pl-12 py-3 pr-3 rounded focus:outline-none focus:shadow-none focus:border-transparent hidden md:flex"
             placeholder="search">
           </form>
         </div>

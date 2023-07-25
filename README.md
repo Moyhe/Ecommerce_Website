@@ -2,6 +2,10 @@
 
 laravel 10 Ecommerce website  with docker and MySQL. it has filament admin panel 
 
+## Demo
+
+    https://drive.google.com/file/d/1Jw-uKhCj1I2frqObujA19twFGHSVkS8B/view?usp=sharing
+
 ## Installation with docker
 
 1.Clone the project
@@ -43,3 +47,18 @@ Access to the docker container
 7.Add Filament Admin user
 
     php artisan make:filament-user
+
+## Features
+
+1. login, register and profile user
+2. add to cart
+3. update quantity
+4. coupon
+5. add to wishlist
+6. shop with low to high or high to low pricing
+7. search for products with categories
+7. payment with paymob
+8. filament admin panel for managing project
+9. contact us page for communication
+10. category for each products
+11. order history

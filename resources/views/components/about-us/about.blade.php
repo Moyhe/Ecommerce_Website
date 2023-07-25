@@ -1,10 +1,10 @@
-<section class="flex items-center py-10 bg-stone-100 mt-32 font-poppins dark:bg-gray-800 ">
+<section class="flex items-center  py-10 bg-stone-100 mt-32 font-poppins dark:bg-gray-800 ">
     <div class="justify-center flex-1 max-w-6xl py-4 mx-auto lg:py-6 md:px-6">
         <div class="flex flex-wrap ">
             <div class="w-full px-4 mb-10 lg:w-1/2 lg:mb-0">
                 <div class="relative">
                     <img src="{{asset('images/category/category-1.jpg')}}" alt=""
-                        class="relative z-40 object-cover w-full h-96 lg:rounded-tr-[80px] lg:rounded-bl-[80px] rounded">
+                        class="relative z-30 object-cover w-full h-96 lg:rounded-tr-[80px] lg:rounded-bl-[80px] rounded">
                     <div
                         class="absolute z-10 hidden w-full h-full bg-red-400 rounded-bl-[80px] rounded -bottom-6 right-6 lg:block">
                     </div>

@@ -22,7 +22,7 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\CartUpdateListener'
         ],
         'cart.updated' => [
-            'App\isteners\CartUpdateListener',
+            'App\Listeners\CartUpdateListener',
         ],
         'cart.removed' => [
             'App\Listeners\CartUpdateListener',
