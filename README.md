@@ -4,7 +4,7 @@ laravel 10 Ecommerce website  with docker,  MySQL, Tailwindcss and Alpine js. it
 
 ## Demo
 
-[](https://drive.google.com/file/d/1Jw-uKhCj1I2frqObujA19twFGHSVkS8B/view?usp=sharing)
+[Video](https://drive.google.com/file/d/1Jw-uKhCj1I2frqObujA19twFGHSVkS8B/view?usp=sharing)
 
 ## Installation with docker
 
