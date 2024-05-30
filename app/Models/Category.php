@@ -10,7 +10,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $table = 'species';
+    protected $table = 'category_listings';
 
     /**
      * The products that belong to the Category
@@ -19,6 +19,6 @@ class Category extends Model
      */
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class, 'category_product', 'category_listings_id', 'product_id');
     }
 }

@@ -20,7 +20,7 @@ class Product extends Model
 
     protected $attributes = [
         'thumbnails' => '[]'
-     ];
+    ];
 
     /**
      * The categories that belong to the Product
@@ -29,43 +29,47 @@ class Product extends Model
      */
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'category_product', 'product_id', 'category_listings_id');
     }
 
     public function scopeFilter($query, array $filters)
     {
-        $query->when($filters['search'] ?? false, fn($query, $search) =>
-            $query->where(fn($query) =>
+        $query->when(
+            $filters['search'] ?? false,
+            fn ($query, $search) =>
+            $query->where(
+                fn ($query) =>
                 $query->where('name', 'like', '%' . $search . '%')
                     ->orWhere('description', 'like', '%' . $search . '%')
             )
         );
 
-        $query->when($filters['category'] ?? false, fn($query, $category) =>
-            $query->whereHas('categories', fn ($query) =>
+        $query->when(
+            $filters['category'] ?? false,
+            fn ($query, $category) =>
+            $query->whereHas(
+                'categories',
+                fn ($query) =>
                 $query->where('slug', $category)
             )
         );
-
     }
 
     public function scopeOtherProducts($query)
     {
-         return $query->inrandomOrder()->take(4)->get();
+        return $query->inrandomOrder()->take(4)->get();
     }
 
     public function getStockLevel($quantity)
     {
-       if ($quantity > config('cart.threshold')) {
-           $stcokLevel = '<span class="text-green-600">In Stock</span>';
-       } elseif ($quantity <= config('cart.threshold') && $quantity > 0) {
-           $stcokLevel = '<span class="text-yellow-400">Low Stock</span>';
-       } else {
-        $stcokLevel = '<span class="text-red-600">Out of Stock</span>';
-       }
+        if ($quantity > config('cart.threshold')) {
+            $stcokLevel = '<span class="text-green-600">In Stock</span>';
+        } elseif ($quantity <= config('cart.threshold') && $quantity > 0) {
+            $stcokLevel = '<span class="text-yellow-400">Low Stock</span>';
+        } else {
+            $stcokLevel = '<span class="text-red-600">Out of Stock</span>';
+        }
 
-       return $stcokLevel;
+        return $stcokLevel;
     }
-
-
 }
