@@ -17,7 +17,7 @@ class LandingPageController extends Controller
         $products = Product::query()->latest()->take(8)->inRandomOrder()->get();
         $categories = Category::query()->take(6)->get();
 
-         return view('home.index', compact(['products', 'categories']));
+        return view('home.home', compact(['products', 'categories']));
     }
 
 
@@ -25,6 +25,6 @@ class LandingPageController extends Controller
     {
         $products = Product::query()->filter(request(['search', 'category']))->get();
 
-        return view('search.index', compact('products'));
+        return view('search.search', compact('products'));
     }
 }

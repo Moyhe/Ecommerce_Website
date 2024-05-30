@@ -22,10 +22,9 @@ class ShopController extends Controller
             $products = Product::query()->orderByDesc('price')->paginate(6)->withQueryString();
         } else {
             $products = Product::query()->latest()->take(6)->inRandomOrder()->filter(request(['search', 'category']))->paginate(6)->withQueryString();
-
         }
 
-        return view('shop.index', compact(['products', 'categories']));
+        return view('shop.shop', compact(['products', 'categories']));
     }
 
 
@@ -35,12 +34,9 @@ class ShopController extends Controller
     public function show(Product $product)
     {
 
-         $relatedProducts = Product::query()->where('slug', '!=', $product->slug)->otherProducts();
-         $stockLevel = $product->getStockLevel($product->quantity);
+        $relatedProducts = Product::query()->where('slug', '!=', $product->slug)->otherProducts();
+        $stockLevel = $product->getStockLevel($product->quantity);
 
-         return view('product.index', compact('product', 'relatedProducts', 'stockLevel'));
+        return view('product.product', compact('product', 'relatedProducts', 'stockLevel'));
     }
-
-
-
 }

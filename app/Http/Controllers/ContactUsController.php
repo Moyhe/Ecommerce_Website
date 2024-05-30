@@ -13,7 +13,7 @@ class ContactUsController extends Controller
      */
     public function index()
     {
-        return view('contact-us.index');
+        return view('contact-us.contact');
     }
 
 

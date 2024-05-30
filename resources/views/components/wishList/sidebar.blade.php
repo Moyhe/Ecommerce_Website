@@ -9,7 +9,7 @@
             <div class="flex-grow">
                 <p class="text-gray-600">Hello,</p>
                 <h4 class="text-gray-800 font-medium">
-                    {{ request()->user()->name }}
+                    {{ request()->user()?->name }}
                 </h4>
             </div>
         </div>

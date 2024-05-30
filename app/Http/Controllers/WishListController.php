@@ -14,7 +14,7 @@ class WishListController extends Controller
     public function index(Product $product)
     {
 
-        return view('wishList.index', compact('product'));
+        return view('wishList.wishList', compact('product'));
     }
 
     /**
@@ -35,17 +35,14 @@ class WishListController extends Controller
             return $cartItem->id === $product->id;
         });
 
-        if($duplicateItem->isNotEmpty())
-        {
+        if ($duplicateItem->isNotEmpty()) {
             return redirect()->route('wishlist')->with('success', 'Product is already in your cart!');
-
         } else {
 
-            Cart::instance('wishlist')->add($product->id, $product->name, 1, $product->price, ['quantity'=> $product->quantity])->associate('App\Models\Product');
+            Cart::instance('wishlist')->add($product->id, $product->name, 1, $product->price, ['quantity' => $product->quantity])->associate('App\Models\Product');
 
             return redirect()->route('wishlist')->with('success', 'Product was added to your cart!');
-
-         }
+        }
     }
 
 
@@ -57,6 +54,5 @@ class WishListController extends Controller
     {
         Cart::instance('wishlist')->remove($id);
         return back()->with('success', 'Product has been removed!');
-
     }
 }

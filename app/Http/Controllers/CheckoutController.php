@@ -28,7 +28,7 @@ class CheckoutController extends Controller
 
         $token =  $this->paymentAPI();
 
-       return view('checkout.index', compact(['discount', 'newSubTotal', 'newTax', 'newTotal', 'token']));
+        return view('checkout.checkout', compact(['discount', 'newSubTotal', 'newTax', 'newTotal', 'token']));
     }
 
 
@@ -57,12 +57,12 @@ class CheckoutController extends Controller
         $owner = $data->obj->owner;
         $pending = $data->obj->pending;
         $source_data_pan = $data->obj->source_data->pan;
-        $source_data_type= $data->obj->source_data->type;
+        $source_data_type = $data->obj->source_data->type;
         $source_data_sub_type  = $data->obj->source_data->sub_type;
         $success = $data->obj->success;
 
 
-        $request_hashMac = $amount_cents.$created_at.$currency.$error_occured.$has_parent_transaction.$transaction_id.$integration_id.$is_3d_secure.$is_auth.$is_capture.$is_refunded.$is_standalone_payment.$is_voided.$order_id.$owner.$pending.$source_data_pan.$source_data_type.$source_data_sub_type.$success;
+        $request_hashMac = $amount_cents . $created_at . $currency . $error_occured . $has_parent_transaction . $transaction_id . $integration_id . $is_3d_secure . $is_auth . $is_capture . $is_refunded . $is_standalone_payment . $is_voided . $order_id . $owner . $pending . $source_data_pan . $source_data_type . $source_data_sub_type . $success;
 
         $hased_hasMac = hash_hmac('SHA512', $request_hashMac, '3DF769E523C37F97A83AD1D4AF1A282C');
 
@@ -71,22 +71,19 @@ class CheckoutController extends Controller
 
         if ($hased_hasMac === $hashMac) {
 
-           try {
+            try {
 
-            $order = $this->placeOrders($transaction_id, $order_id, $pending, $success, $request, null, $coupon);
-            Mail::to(request()->user())->send(new OrderShipped($order));
+                $order = $this->placeOrders($transaction_id, $order_id, $pending, $success, $request, null, $coupon);
+                Mail::to(request()->user())->send(new OrderShipped($order));
 
-            // decrease the quantities of all the products in the cart
-            $this->decreaseQuantities();
+                // decrease the quantities of all the products in the cart
+                $this->decreaseQuantities();
 
-           Cart::instance('default')->destroy();
-           session()->forget('coupon');
-
-         } catch (CartAlreadyStoredException $e) {
-            $this->placeOrders($transaction_id, $order_id, $pending, $success, $request, $e->getMessage(), $coupon);
-           }
-
-
+                Cart::instance('default')->destroy();
+                session()->forget('coupon');
+            } catch (CartAlreadyStoredException $e) {
+                $this->placeOrders($transaction_id, $order_id, $pending, $success, $request, $e->getMessage(), $coupon);
+            }
         }
 
         return;
@@ -97,43 +94,42 @@ class CheckoutController extends Controller
 
         // Insert into orders table
         $order = Order::create([
-        'user_id' => auth()->user() ? auth()->user()->id : null,
-        'email' =>  $request,
-        'first_name' =>   $request,
-        'address'=> $request,
-        'city' =>   $request,
-        'last_name' => $request,
-        'country' => $request,
-        'phone' => $request,
-        'transaction_id' => $transaction_id,
-        'order_number' => $order_id,
-        'pending' => $pending,
-        'success' => $success,
-        'totalPrice' => $coupon->getCoupon()->get('newTotal'),
-        'error' => $error
+            'user_id' => auth()->user() ? auth()->user()->id : null,
+            'email' =>  $request,
+            'first_name' =>   $request,
+            'address' => $request,
+            'city' =>   $request,
+            'last_name' => $request,
+            'country' => $request,
+            'phone' => $request,
+            'transaction_id' => $transaction_id,
+            'order_number' => $order_id,
+            'pending' => $pending,
+            'success' => $success,
+            'totalPrice' => $coupon->getCoupon()->get('newTotal'),
+            'error' => $error
 
-    ]);
-
-     // Insert into order_product table
-     foreach (Cart::content() as $item) {
-        OrderProduct::create([
-            'order_id' => $order->id,
-            'product_id' => $item->model->id,
-            'quantity' => $item->qty,
         ]);
-    }
 
-     return $order;
+        // Insert into order_product table
+        foreach (Cart::content() as $item) {
+            OrderProduct::create([
+                'order_id' => $order->id,
+                'product_id' => $item->model->id,
+                'quantity' => $item->qty,
+            ]);
+        }
 
+        return $order;
     }
 
 
     protected function decreaseQuantities()
     {
         foreach (Cart::content() as $item) {
-             $product = Product::find($item->model->id);
+            $product = Product::find($item->model->id);
 
-             $product->update(['quantity' => $product->quantity - $item->qty]);
+            $product->update(['quantity' => $product->quantity - $item->qty]);
         }
     }
 
@@ -177,8 +173,8 @@ class CheckoutController extends Controller
                 "last_name" => "Nicolas",
                 "state" => "Utah"
             ],
-                "currency" => "EGP",
-                "integration_id" => 4015322
+            "currency" => "EGP",
+            "integration_id" => 4015322
 
         ])->throw()->json();
 
@@ -206,7 +202,4 @@ class CheckoutController extends Controller
 
         ])->throw()->json();
     }
-
-
-
 }

@@ -17,15 +17,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-
-
         //  \App\Models\Product::factory(10)->create();
 
         Category::factory()
-            ->count(5)
+            ->count(6)
             ->hasAttached(Product::factory()->count(5))
             ->create();
-
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

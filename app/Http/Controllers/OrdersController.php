@@ -13,8 +13,8 @@ class OrdersController extends Controller
      */
     public function index()
     {
-         $orders = auth()->user()->orders ?? null;
-         return view('orders.index', compact('orders'));
+        $orders = auth()->user()->orders ?? null;
+        return view('orders.order', compact('orders'));
     }
 
 
@@ -23,13 +23,10 @@ class OrdersController extends Controller
      */
     public function show(Order $order)
     {
-       if(auth()->user() != $order->user_id) return back()->withErrors('you do not have permissions to this');
+        if (auth()->user() != $order->user_id) return back()->withErrors('you do not have permissions to this');
 
-       $products = $order->products;
+        $products = $order->products;
 
-       return view('orders.show', compact('products', 'order'));
-
+        return view('orders.show', compact('products', 'order'));
     }
-
-
 }
