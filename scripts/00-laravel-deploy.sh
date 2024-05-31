@@ -19,8 +19,6 @@ php artisan migrate:fresh --force
 echo "storage link"
 php artisan storage:link
 
-echo "seeding data"
-php artisan db:seed
 
 echo "done deploying"
 
