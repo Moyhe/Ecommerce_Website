@@ -6,7 +6,7 @@
     <!-- product-detail -->
     <div class="container grid grid-cols-2 gap-6">
         <div x-data="{
-            imageUrl: '{{ asset('storage/' . $product->thumbnail) }}',
+            imageUrl: '{{ $product->getThumbnail() }}',
 
               }">
 
@@ -16,8 +16,8 @@
 
                @if ($product->thumbnails)
 
-               @foreach ($product->thumbnails as $thumbnail)
-               <img  @click="imageUrl = '{{ asset('storage/' . $thumbnail) }}'" src="{{ asset('storage/' . $thumbnail) }}"  alt="product2" class="w-full cursor-pointer border changedThumbnail h-24">
+               @foreach ((array)$product->thumbnails as $thumbnail)
+               <img  @click="imageUrl = '{{ $product->getThumbnail() }}'" src="{{ $product->getThumbnail() }}"  alt="product2" class="w-full cursor-pointer border changedThumbnail h-24">
                @endforeach
 
                @endif

@@ -36,7 +36,6 @@ Route::get('/search', [LandingPageController::class, 'search'])->name('search');
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/shop/{product:slug}', [ShopController::class, 'show'])->name('shop.show');
 
-
 Route::post('/coupon', [CouponController::class, 'store'])->name('coupon.store');
 Route::delete('/coupon', [CouponController::class, 'destroy'])->name('coupon.destroy');
 
