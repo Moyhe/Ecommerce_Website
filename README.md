@@ -1,6 +1,6 @@
-## Ecommerce Wesbite 
+## Ecommerce Wesbite
 
-laravel 10 Ecommerce website  with docker,  MySQL, Tailwindcss and Alpine js. it has filament admin panel 
+laravel 10 Ecommerce website with docker, MySQL, Tailwindcss and Alpine js. it has filament admin panel
 
 ## Demo
 
@@ -12,7 +12,7 @@ laravel 10 Ecommerce website  with docker,  MySQL, Tailwindcss and Alpine js. it
 
     git clone https://github.com/Moyhe/Ecommerce_Website.git
 
-2.Run composer install
+2.Run composer install && npm install then
 
 Navigate into project folder using terminal and run
 
@@ -57,8 +57,8 @@ Access to the docker container
 5. add to wishlist
 6. shop with low to high or high to low pricing
 7. search for products with categories
-7. payment with paymob
-8. filament admin panel for managing project
-9. contact us page for communication
-10. category for each products
-11. order history
+8. payment with paymob
+9. filament admin panel for managing project
+10. contact us page for communication
+11. category for each products
+12. order history
