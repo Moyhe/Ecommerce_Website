@@ -22,11 +22,8 @@ class CartController extends Controller
         $newTax = $coupon->getCoupon()->get('newTax');
         $newTotal = $coupon->getCoupon()->get('newTotal');
 
-
         return view('cart.cart', compact(['discount', 'newSubTotal', 'newTax', 'newTotal']));
     }
-
-
 
     /**
      * Store a newly created resource in storage.
