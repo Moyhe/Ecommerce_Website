@@ -17,7 +17,7 @@ echo "Running migrations..."
 php artisan migrate:fresh --force
 
 echo "seeding data"
-php artisan db:seed --froce
+php artisan db:seed --force
 
 echo "storage link"
 php artisan storage:link

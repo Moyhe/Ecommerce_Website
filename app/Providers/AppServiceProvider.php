@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
             return request()->user()?->can('admin');
         });
 
-        if (app()->environment() == 'productoin') {
+        if (app()->environment() == 'production') {
             $url->forceScheme('https');
         }
     }
