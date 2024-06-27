@@ -17,7 +17,7 @@ class ProductFactory extends Factory
      * @return array<string, mixed>
      */
 
-     protected $model = Product::class;
+    protected $model = Product::class;
 
     public function definition(): array
     {
@@ -25,11 +25,12 @@ class ProductFactory extends Factory
 
         return [
             'name' => $name,
-           'slug' => Str::slug($name),
-           'thumbnail' => fake()->imageUrl,
-           'description' => fake()->realText(5000),
-           'quantity' => 5,
-           'price' => fake()->numberBetween(100, 1000),
+            'slug' => Str::slug($name),
+            'thumbnail' => fake()->imageUrl,
+            'thumbnails' => fake()->imageUrl,
+            'description' => fake()->realText(5000),
+            'quantity' => 5,
+            'price' => fake()->numberBetween(100, 1000),
 
         ];
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\GetImage;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, GetImage;
 
     protected $with = ['categories'];
 
@@ -21,6 +22,7 @@ class Product extends Model
     protected $attributes = [
         'thumbnails' => '[]'
     ];
+
 
     /**
      * The categories that belong to the Product
@@ -54,6 +56,7 @@ class Product extends Model
             )
         );
     }
+
 
     public function scopeOtherProducts($query)
     {

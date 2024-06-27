@@ -7,7 +7,7 @@
               @foreach ($relatedProducts as $product)
               <div class="bg-white shadow rounded overflow-hidden group">
                 <div class="relative">
-                    <img src="{{ asset('storage/' . $product->thumbnail) }}" alt="product 1" class="w-full h-64">
+                    <img src="{{ $product->getThumbnail() }}" alt="product 1" class="w-full h-64">
                     <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center
                     justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
                         <a href="{{ route('shop.show', $product->slug) }}"
